@@ -1,0 +1,51 @@
+//customer information
+#include<iostream>
+#include <iomanip>
+using namespace std;
+string name,address,phone;
+int booking_id,room,status;
+void accept();
+void display();
+
+int main()
+{
+    accept();
+    display();
+    return 0;
+}
+void accept()
+{
+	cout<<"Enter customer name: ";
+	getline(cin, name);
+
+	cout<<"Enter Customer address: ";
+	getline(cin,address);
+	flag:
+	cout<<"Enter mobile number: ";
+	cin>>phone;
+	for(int i=0;i<(phone.length());i++)
+  	{
+		if(!isdigit(phone[i]))
+		{
+			cout<<"Phone number has to be in digits.\n";
+			goto flag;
+		}
+  	}
+  	if(phone.length()!=10)
+  	{
+  	  cout<<"Phone number should be 10 digits.\n";
+  	  goto flag;
+ 	 }
+}
+void display()
+{
+    cout<<"| booking_id\t| name\t\t| phone\t\t\t| address\t\t|Availability  \t"<<endl;
+	cout<<"| "<<booking_id+1<<"\t\t";
+	cout<<"| "<<name<<"\t\t";
+	cout<<"| "<<phone<<"\t\t";
+	cout<<"| "<<address<<"\t\t\t";;
+	if(status==0){cout<<"|Available.\t";}
+	else{cout<<"unavailable\t\t|";}
+	cout<<endl;
+
+}
