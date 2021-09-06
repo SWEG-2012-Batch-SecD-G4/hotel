@@ -6,11 +6,17 @@ string name,address,phone;
 int booking_id,room,status;
 void accept();
 void display();
+void room_info();
+void searchRoom();
+void searchCust();
 
 int main()
 {
     accept();
     display();
+    room_info();
+    searchRoom();
+    searchCust();
     return 0;
 }
 void accept()
@@ -49,3 +55,120 @@ void display()
 	cout<<endl;
 
 }
+void room_info()
+{
+    int rno;
+	cout<<"Enter number of rooms: ";
+	cin>>h.nroom;		//ACCEPTING NUMBER OF ROOMS
+	while(h.nroom<=0)
+	{
+		cout<<"Invalid. Enter valid number of rooms.";
+		cin>>h.nroom;
+	}
+	for(int i=0;i<h.nroom;i++)
+	{
+		cout<<"ROOM "<<(i+1)<<endl;
+		flag:
+		cout<<endl<<"Enter room number : ";
+		cin>>rno;
+		if(rno<=0)		//VALIDATIONS
+		{
+			cout<<endl<<"This room number is invalid! Please Re-enter the room number : ";
+			goto flag;
+		}
+		for(int i=0; i<h.nroom;i++)	//VALIDATIONS FOR REPETITIVE ROOM NUMBERS
+		{
+			if(h.nroom==rno)
+			{
+				cout<<"Invalid. Repetitive room numbers."<<endl;
+				goto flag;
+			}
+		}
+  
+
+	cout<<"Type AC/Non-AC (A/N) : ";
+	cin>>r[h.ncust].ac;
+	while(r[h.ncust].ac!='A'&& r[h.ncust].ac!='N')		//VALIDATIONS
+	{
+		cout<<"Please Re-Enter Type: AC/Non-AC (A/N) : ";
+		cin>>r[h.ncust].ac;
+	}
+	cout<<"Type Comfort Suite or Normal (S/N) : ";
+	cin>>r[h.ncust].type;
+	while(r[h.ncust].type!='S' && r[h.ncust].type!='N')
+	{
+		cout<<"Please Re-enter Type Comfort Suite or Normal (S/N) : ";
+		cin>>r[h.ncust].type;
+	}
+	cout<<"Type Size (B/S) : ";
+	cin>>r[h.ncust].stype;
+	while(r[h.ncust].stype!='B'&& r[h.ncust].stype!='S')
+	{
+		cout<<"Please Re-enter Type Size (B/S) : ";
+		cin>>r[h.ncust].stype;
+	}
+	cout<<"Daily Rent : ";
+	cin>>r[h.ncust].rent;
+	while(r[h.ncust].rent<0 || r[h.ncust].rent>20000)
+	{
+		cout<<"Please enter valid rent.";
+		cin>>r[h.ncust].rent;
+	}
+	r[h.ncust].status=0;	//BOOKING STATUS OF THE ROOM
+
+}
+cout<<"\nRoom Added Successfully!"<<endl;
+}
+void searchRoom()	//SEARCH FOR A PARTICULAR TYPE OF A ROOM
+{
+	if(h.nroom==0)
+	{
+		cout<<"Please add rooms."<<endl;
+		return;
+	}
+	int flag=0;
+	char ac1, type1, stype1;
+	cout<<"Do you want AC or Non-AC? (A/N): "<<endl;
+	cin>>ac1;
+	cout<<"Do you want suite or normal room?"<<endl;
+	cin>>type1;
+	cout<<"Size? (B/S)"<<endl;
+	cin>>stype1;
+	for(int i=0;i<h.nroom;i++)
+	{
+		if(r[i].ac==ac1 && r[i].type==type1 && r[i].stype==stype1)		//MAKING SURE ALL CONDITIONS ARE SATISFIED
+		{
+			flag=1;
+			cout<<"Room found"<<endl;
+			displayRoom();
+		}
+	}
+	if(flag==0)
+	{
+		cout<<"No such room is available."<<endl;
+	}
+}
+void searchCust()
+{
+    int id, flag=0;
+	cout<<"Enter booking id of customer.";
+	cin>>id;
+	for(int i=0;i<=h.ncust;i++)		//SEARCHING FOR CUSTOMER
+	{
+		if(c[i].booking_id==id)
+		{
+			cout<<"\t\t\t Name"<<setw(20);
+			cout<<"\t\t\t Phone"<<setw(20);
+			cout<<"\t\t\t Address"<<setw(20);
+			cout<<"\t\t\tRoom no: "<<setw(20)<<endl;
+			displayCust();
+			flag=1;
+		}
+	}
+	if(flag==0)		//case not found
+	{
+		cout<<"No customer found."<<endl;
+	}
+}
+
+
